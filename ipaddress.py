@@ -32,8 +32,13 @@ def main():
 			ipaddress = ""
 
 			# Find a possible location of the ip address
-			current_index = search_string.find(ipaddress_string)
-			current_index = current_index + len(ipaddress_string)
+			if search_string.find(ipaddress_string) != -1:
+				current_index = search_string.find(ipaddress_string)
+				current_index = current_index + len(ipaddress_string)
+			else:
+				# End the program, since no valid ip address was found
+				warning("No valid ip address found")
+				return 0
 
 			# Take in the address at the possible location
 			while search_string[current_index] != " ":
