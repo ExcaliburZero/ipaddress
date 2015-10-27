@@ -1,5 +1,5 @@
 # ipaddress
-This is a simple Python script used to get the ip address of a computer. It works using `ifconfig`, and thus it is required in order for the script to work.
+This is a simple Python script used to get the ip address of a computer. It works using `/sbin/ifconfig`, and thus it is required in order for the script to work.
 
 This script ignores local ip addresses such as `127.0.0.1`.
 

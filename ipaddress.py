@@ -1,32 +1,31 @@
-"""A script which finds the ip address of the user using the ifconfig command"""
+"""A script which finds the ip address of the user using the /sbin/ifconfig command"""
 from __future__ import print_function
 import sys
 from subprocess import Popen, PIPE
 
 def main():
-	"""Find out the user's ip address using the ifconfig command and parsing
+	"""Find out the user's ip address using the /sbin/ifconfig command and parsing
 	 its output"""
 	try:
-		# Create a terminal and run ifconfig to get network information
-		terminal = Popen("ifconfig", shell=True, stdin=PIPE, stdout=PIPE)
+		# Create a terminal and get network information using /sbin/ifconfig
+		terminal = Popen("/sbin/ifconfig", shell=True, stdin=PIPE, stdout=PIPE)
+		
+		# Get the output from the terminal command
 		ifconfig_out = terminal.communicate()
 
-		# If ifconfig yiels an error then end the program
-		if ifconfig_out[1] != None:
-			warning(ifconfig_out[1])
-			return 1
-		elif ifconfig_out[0] == '':
-			warning("ifconfig command returned no output")
+		# If /sbin/ifconfig yields an error then end the program
+		if ifconfig_out[0] == '':
+			warning("/sbin/ifconfig command returned no output")
 			return 1
 
-		# If ifconfig worked, then parse its output for the ip address
+		# If /sbin/ifconfig worked, then parse its output for the ip address
 		have_not_found_address = True
 		current_index = 0
 		search_string = ifconfig_out[0]
 		ipaddress_string = "inet addr:"
 		ipaddress = ""
 
-		# Find the ip address within the ifconfig output
+		# Find the ip address within the /sbin/ifconfig output
 		while have_not_found_address:
 			# Reset the possible ip address
 			ipaddress = ""
